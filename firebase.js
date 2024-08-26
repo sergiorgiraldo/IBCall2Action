@@ -18,7 +18,7 @@ const app2 = initializeApp(firebaseConfig);
 
 // https://www.google.com/recaptcha/admin/site/707755302
 const rProvider = new ReCaptchaV3Provider("6LcmfS8qAAAAAOYgmZA08o_CtG-9Sdm2f9z93ZFc");
-const appCheck = initializeAppCheck(app2, {
+initializeAppCheck(app2, {
     provider: rProvider
 });
 
