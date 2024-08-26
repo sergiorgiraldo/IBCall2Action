@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="nl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Your proposal</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+			rel="stylesheet" />
+		<link rel="stylesheet" href="main.css" />
+	</head>
+
+	<body>
+		<header>
+			<h1>Your proposal</h1>
+		</header>
+		<main>
+			<form id="proposalForm" method="post">
+				<p>
+					<label for="proposalName">Name:</label>
+					<input
+						type="text"
+						id="proposalName"
+						name="proposalName"
+						required />
+				</p>
+				<p>
+					<label for="proposalEmail">Email:</label>
+					<input
+						type="email"
+						id="proposalEmail"
+						name="proposalEmail"
+						required />
+				</p>
+				<p>
+					<label for="proposalSchool">School:</label>
+					<input
+						type="text"
+						id="proposalSchool"
+						name="proposalSchool" />
+				</p>
+				<p>
+					<label for="proposalText">Proposal:</label>
+					<textarea
+						id="proposalText"
+						name="proposalText"
+						required></textarea>
+				</p>
+				<p>
+					<button type="submit">Register</button>
+				</p>
+			</form>
+			<hr />
+			<ul>
+				<li><a href="proposals.html">All proposals</a></li>
+				<li><a href="index.html">Home</a></li>
+			</ul>
+		</main>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+		<script>
+			// Firebase configuration
+			const firebaseConfig = {
+				apiKey: "AIzaSyAj3A2wkkMSktUeHs5r8SyMDN8aRvUSyW8",
+				authDomain: "ibcall2action.firebaseapp.com",
+				projectId: "ibcall2action",
+				storageBucket: "ibcall2action.appspot.com",
+				messagingSenderId: "150009273784",
+				appId: "1:150009273784:web:4dcf980266800f8e22c34d",
+				measurementId: "G-2HZQMDDC7C",
+				databaseURL: "https://ibcall2action-default-rtdb.europe-west1.firebasedatabase.app/"
+			};
+			// Initialize Firebase
+			const app = firebase.initializeApp(firebaseConfig);
+			const db = firebase.database(app);
+			// Get the form and add an event listener for its submission
+			const form = document.getElementById("proposalForm");
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+
+				const proposalName =
+					document.getElementById("proposalName").value;
+				const proposalEmail =
+					document.getElementById("proposalEmail").value;
+				const proposalSchool =
+					document.getElementById("proposalSchool").value;
+				const proposalText =
+					document.getElementById("proposalText").value;
+
+				const newProposal = {
+					name: proposalName,
+					email: proposalEmail,
+					school: proposalSchool,
+					proposal: proposalText,
+					when: new Date().toISOString()
+				};
+
+				db.ref("proposals")
+					.push(newProposal)
+					.then(() => {
+						alert("Proposal registered!!");
+                        document.location.href = "proposals.html";
+					})
+					.catch((error) => {
+						alert("Error! Please try again.");
+					});
+			});
+		</script>
+	</body>
+</html>

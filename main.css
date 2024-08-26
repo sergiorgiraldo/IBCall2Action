@@ -1,0 +1,69 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.bg {
+    background-image: url('bg.jpg');
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header {
+    background-image: linear-gradient(to right, #af6b4c, #c34aa1);
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+a,
+a:visited {
+    color: black;
+    font-size: larger;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+li {
+    margin: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+    background-color: rgb(152, 95, 160);
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+    /* mobile */
+    ul {
+        position: absolute;
+        right: 15%;
+    }
+}

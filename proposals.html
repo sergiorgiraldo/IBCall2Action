@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All proposals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <header>
+        <h1>Proposals</h1>
+    </header>
+    <main>
+        <table id="proposalTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>School</th>
+                    <th>Proposal</th>
+                    <th>When</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <hr />
+        <ul>
+            <li><a href="your-proposal.html">New proposal</a></li>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script>
+        const url = `https://ibcall2action-default-rtdb.europe-west1.firebasedatabase.app/proposals.json?orderBy="date"`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const proposalTable = document.querySelector('#proposalTable tbody');
+                proposalTable.innerHTML = ''; // clear any existing rows
+
+                const sortedEntries = Object.entries(data).sort((a, b) => {
+                    const dateA = new Date(`${a[1].date} ${a[1].time}`);
+                    const dateB = new Date(`${b[1].date} ${b[1].time}`);
+                    return dateA - dateB;
+                });
+
+                sortedEntries.forEach(([key, proposal]) => {
+                    const proposalName = proposal.name;
+                    const proposalEmail = proposal.email;
+                    const proposalSchool = proposal.school ?? "";
+                    const proposalText = proposal.proposal;
+                    const proposalTimestamp = proposal.when;
+
+                    // create a new row
+                    const newRow = document.createElement('tr');
+
+                    // create the cells for the row
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = proposalName;
+                    newRow.appendChild(nameCell);
+
+                    const emailCell = document.createElement('td');
+                    emailCell.textContent = proposalEmail;
+                    newRow.appendChild(emailCell);
+
+                    const schoolCell = document.createElement('td');
+                    schoolCell.textContent = proposalSchool;
+                    newRow.appendChild(schoolCell);
+
+                    const proposalCell = document.createElement('td');
+                    proposalCell.textContent = proposalText;
+                    newRow.appendChild(proposalCell);
+
+                    const timestampCell = document.createElement('td');
+                    timestampCell.textContent = proposalTimestamp;
+                    newRow.appendChild(timestampCell);
+
+                    proposalTable.appendChild(newRow);
+                })
+            })
+            .catch(error => {
+                console.error('Error retrieving data from Firebase Realtime Database:', error);
+            });
+    </script>
+</body>
+
+</html>
