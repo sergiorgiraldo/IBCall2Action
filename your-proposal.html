@@ -79,7 +79,7 @@
 			const app = initializeApp(firebaseConfig);
 
 			// https://www.google.com/recaptcha/admin/site/707755302
-            rProvider = new ReCaptchaV3Provider("6LcmfS8qAAAAAOYgmZA08o_CtG-9Sdm2f9z93ZFc");
+            const rProvider = new ReCaptchaV3Provider("6LcmfS8qAAAAAOYgmZA08o_CtG-9Sdm2f9z93ZFc");
 			const appCheck = initializeAppCheck(app, {
 				provider: rProvider
 			});
