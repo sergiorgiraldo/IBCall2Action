@@ -60,7 +60,7 @@
 			</ul>
 		</main>
 		<script type="module">
-            import {db2} from '/firebase.js'
+            import {db} from '/firebase.js'
 
 			const form = document.getElementById("proposalForm");
 			form.addEventListener("submit", async (e) => {
@@ -83,7 +83,7 @@
 					when: new Date().toISOString()
 				};
 
-				db2.ref("proposals")
+				db.ref("proposals")
 					.push(newProposal)
 					.then(() => {
 						alert("Proposal registered!!");
