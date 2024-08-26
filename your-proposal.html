@@ -10,6 +10,7 @@
 			href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
 			rel="stylesheet" />
 		<link rel="stylesheet" href="main.css" />
+		<script src="https://www.google.com/recaptcha/api.js"></script>
 	</head>
 
 	<body>
@@ -49,7 +50,7 @@
 						required></textarea>
 				</p>
 				<p>
-					<button type="submit">Register</button>
+					<button>Register</button>
 				</p>
 			</form>
 			<hr />
@@ -70,10 +71,14 @@
 				messagingSenderId: "150009273784",
 				appId: "1:150009273784:web:4dcf980266800f8e22c34d",
 				measurementId: "G-2HZQMDDC7C",
-				databaseURL: "https://ibcall2action-default-rtdb.europe-west1.firebasedatabase.app/"
+				databaseURL:
+					"https://ibcall2action-default-rtdb.europe-west1.firebasedatabase.app/"
 			};
 			// Initialize Firebase
 			const app = firebase.initializeApp(firebaseConfig);
+			const appCheck = firebase.appCheck();
+			// https://www.google.com/recaptcha/admin/site/707755302
+			appCheck.activate("6LcmfS8qAAAAAOYgmZA08o_CtG-9Sdm2f9z93ZFc", true);
 			const db = firebase.database(app);
 			// Get the form and add an event listener for its submission
 			const form = document.getElementById("proposalForm");
@@ -101,7 +106,7 @@
 					.push(newProposal)
 					.then(() => {
 						alert("Proposal registered!!");
-                        document.location.href = "proposals.html";
+						document.location.href = "proposals.html";
 					})
 					.catch((error) => {
 						alert("Error! Please try again.");
