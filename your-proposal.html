@@ -59,9 +59,10 @@
 				<li><a href="index.html">Home</a></li>
 			</ul>
 		</main>
-        <script type="module">
-            import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13/firebase-app.js'
-            import { appCheck, getDatabase } from 'https://www.gstatic.com/firebasejs/10.13/firebase-database.js'
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13/firebase-app.js";
+			import { getDatabase } from "https://www.gstatic.com/firebasejs/10.13/firebase-database.js";
+			import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.13/firebase-app-check.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyAj3A2wkkMSktUeHs5r8SyMDN8aRvUSyW8",
@@ -75,14 +76,17 @@
 					"https://ibcall2action-default-rtdb.europe-west1.firebasedatabase.app/"
 			};
 
-            const app = initializeApp(firebaseConfig);
+			const app = initializeApp(firebaseConfig);
 
-            // https://www.google.com/recaptcha/admin/site/707755302
-			appCheck.activate("6LcmfS8qAAAAAOYgmZA08o_CtG-9Sdm2f9z93ZFc", true);
+			// https://www.google.com/recaptcha/admin/site/707755302
+            rProvider = new ReCaptchaV3Provider("6LcmfS8qAAAAAOYgmZA08o_CtG-9Sdm2f9z93ZFc");
+			const appCheck = initializeAppCheck(app, {
+				provider: rProvider
+			});
 
-            const db = getDatabase(app);
+			const db = getDatabase(app);
 
-            const form = document.getElementById("proposalForm");
+			const form = document.getElementById("proposalForm");
 			form.addEventListener("submit", async (e) => {
 				e.preventDefault();
 
