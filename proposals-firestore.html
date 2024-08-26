@@ -35,8 +35,8 @@
 				<li><a href="index.html">Home</a></li>
 			</ul>
 		</main>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 		<script>
 			// Firebase configuration
 			const firebaseConfig = {
@@ -48,7 +48,7 @@
 				appId: "1:150009273784:web:4dcf980266800f8e22c34d",
 				measurementId: "G-2HZQMDDC7C"
 			};
-			const app = firebase.initializeApp(firebaseConfig);
+			firebase.initializeApp(firebaseConfig);
 			const db = firebase.firestore();
 			db.collection("proposals")
 				.get()
